@@ -1,4 +1,4 @@
-#include <windows.h>
+#include <afxres.h>
 #include "resource.h"
 
 IDD_CIRCLEDIALOG DIALOGEX 0, 0, 800, 600
