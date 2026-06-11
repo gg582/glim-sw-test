@@ -1,0 +1,68 @@
+name: Release Windows EXE
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build-step1:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure Step 1
+        run: |
+          cd step-1
+          cmake -B build -S . -G "Visual Studio 17 2022"
+      - name: Build Step 1
+        run: |
+          cd step-1
+          cmake --build build --config Release
+      - name: Upload Step 1 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: step1-exe
+          path: step-1/build/Release/ImageProcessor.exe
+
+  build-step2:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure Step 2
+        run: |
+          cd step-2
+          cmake -B build -S . -G "Visual Studio 17 2022"
+      - name: Build Step 2
+        run: |
+          cd step-2
+          cmake --build build --config Release
+      - name: Upload Step 2 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: step2-exe
+          path: step-2/build/Release/CircleApp.exe
+
+  release:
+    needs: [build-step1, build-step2]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Step 1 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: step1-exe
+          path: ./artifacts/
+      - name: Download Step 2 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: step2-exe
+          path: ./artifacts/
+      - name: Create Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: latest
+          prerelease: true
+          title: "Auto Build"
+          files: |
+            ./artifacts/ImageProcessor.exe
+            ./artifacts/CircleApp.exe

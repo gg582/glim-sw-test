@@ -1,0 +1,11 @@
+#ifndef RESOURCE_H
+#define RESOURCE_H
+
+#define IDD_CIRCLEDIALOG    101
+#define IDC_EDIT_RADIUS     1001
+#define IDC_EDIT_THICKNESS  1002
+#define IDC_STATIC_COORDS   1003
+#define IDC_BUTTON_RESET    1004
+#define IDC_BUTTON_RANDOM   1005
+
+#endif // RESOURCE_H
