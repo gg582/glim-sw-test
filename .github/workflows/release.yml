@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-step1:
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
       - name: Configure Step 1
@@ -24,7 +24,7 @@ jobs:
           path: step-1/build/Release/ImageProcessor.exe
 
   build-step2:
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
       - name: Configure Step 2
