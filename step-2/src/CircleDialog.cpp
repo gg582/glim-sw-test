@@ -65,7 +65,7 @@ void CircleDialog::drawScene(CDC* pDC) {
 
     // Draw click points
     for (size_t i = 0; i < m_points.size(); ++i) {
-        CircleDrawer::drawFilledRect(pDC, m_points[i].x, m_points[i].y, m_clickRadius, RGB(255, 0, 0));
+        CircleDrawer::drawFilledRect(pDC->GetSafeHdc(), m_points[i].x, m_points[i].y, m_clickRadius, RGB(255, 0, 0));
 
         CString coord;
         coord.Format(_T("P%d(%d,%d)"), static_cast<int>(i) + 1, m_points[i].x, m_points[i].y);
@@ -77,7 +77,7 @@ void CircleDialog::drawScene(CDC* pDC) {
     // Draw circumcircle
     if (m_hasCircle) {
         int r = static_cast<int>(std::round(m_circleRadius));
-        CircleDrawer::drawCircle(pDC, m_circleCenter.x, m_circleCenter.y,
+        CircleDrawer::drawCircle(pDC->GetSafeHdc(), m_circleCenter.x, m_circleCenter.y,
                                  r, m_edgeThickness, RGB(0, 0, 255));
     }
 

@@ -6,6 +6,7 @@
  */
 
 #include <afxwin.h>
+#include <afxdlgs.h>
 #include <vector>
 #include <thread>
 #include <atomic>
